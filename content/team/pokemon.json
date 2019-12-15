@@ -1,0 +1,22 @@
+{
+  "bidoof": {
+    "nickname": "jerry",
+    "shiny": true,
+    "description": "tragically died"
+  },
+  "charmander": {
+    "nickname": "lizardon",
+    "shiny": true,
+    "description": "tragically died"
+  },
+  "gengar": {
+    "nickname": "gengod",
+    "shiny": false,
+    "description": "yeet"
+  },
+  "growlithe": {
+    "nickname": "doodlegod",
+    "shiny": true,
+    "description": "super dead"
+  }
+}
