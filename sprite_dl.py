@@ -1,9 +1,9 @@
 """ sprite_dl.py will handle downloads for the sprites asset folder """
-
-from config import Config
 import os
 import requests
 import json
+
+from config import Config
 
 
 config = Config()
@@ -18,9 +18,6 @@ pkmn_sprite_url = {
     "xy_shiny": "https://play.pokemonshowdown.com/sprites/ani-shiny",
 }
 
-# maybe use this if everything else fails
-# pokeapi_sprites = "https://pokeapi.co/api/v2/pokemon/ditto/"
-
 
 class PokemonData:
     """ Struct that holds json data """
@@ -33,29 +30,36 @@ class PokemonData:
 
 
 def download_sprite(p: PokemonData, c: Config) -> None:
-    # doesn't support shinies yet
     dl_location = f"{c.SPRITE_DIR}/{p.name}.gif"
-    request_url = f"{pkmn_sprite_url[c.SPRITE_TYPE]}/{p.name}.gif"
+    if p.shiny is False:
+        request_url = f"{pkmn_sprite_url[c.SPRITE_TYPE]}/{p.name}.gif"
+    else:
+        shiny = c.SPRITE_TYPE + "_shiny"
+        request_url = f"{pkmn_sprite_url[shiny]}/{p.name}.gif"
 
     r = requests.get(request_url)
-    with open(dl_location, "wb") as f:
-        f.write(r.content)
-
     # Retrieve HTTP meta-data
-    print(f"status: {r.status_code}, content: {r.headers['content-type']}")
+    print(f"Status: {r.status_code}, Content: {r.headers['content-type']}")
+
+    if r.status_code != 404:
+        # Downloads the sprite if page is found
+        with open(dl_location, "wb") as f:
+            f.write(r.content)
+    else:
+        print(f"ERROR: {p.name.upper()} might be spelled incorrectly")
 
 
-def main() -> None:
-    with open("pokemon.json", "r") as file:
+def main(c: config) -> None:
+    with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
         data = json.load(file)
 
-    file_list = os.listdir("./static/sprites")
+    file_list = os.listdir(c.SPRITE_DIR)
 
     for i in data.items():
-        pkmn = PokemonData(i[0], i[1]["nickname"], i[1]["shiny"], i[1]["description"])
+        pkmn = PokemonData(i[0], i[1]["nickname"], i[1]["shiny"], i[1]["description"],)
         if i not in file_list:
             download_sprite(pkmn, config)
 
 
 if __name__ == "__main__":
-    main()
+    main(config)
