@@ -2,6 +2,7 @@
 import os
 import requests
 import json
+from typing import Dict
 
 from config import Config
 
@@ -29,6 +30,26 @@ class PokemonData:
         self.description = description
 
 
+# class MetaData:
+#     def __init__(self, total_pkmn):
+#         self.total_pkmn = total_pkmn
+
+# def open_file() -> int:
+#     with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
+#         data = json.load(file)
+
+#     total_pkmn = len(data.items())
+
+#     return total_pkmn
+
+
+def open_file(c: Config) -> Dict:
+    with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
+        data = json.load(file)
+
+    return data
+
+
 def download_sprite(p: PokemonData, c: Config) -> None:
     dl_location = f"{c.SPRITE_DIR}/{p.name}.gif"
     if p.shiny is False:
@@ -49,9 +70,8 @@ def download_sprite(p: PokemonData, c: Config) -> None:
         print(f"ERROR: {p.name.upper()} might be spelled incorrectly")
 
 
-def main(c: config) -> None:
-    with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
-        data = json.load(file)
+def main(c: Config) -> None:
+    data = open_file(c)
 
     file_list = os.listdir(c.SPRITE_DIR)
 

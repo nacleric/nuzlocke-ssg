@@ -1,5 +1,6 @@
 from jinja2 import Environment, select_autoescape, FileSystemLoader
 
+
 class Config:
     # select bw for 2d and xy for 3d models
     SPRITE_TYPE = "bw"
@@ -15,6 +16,5 @@ class Config:
     BUILD_DIR = "./build"
     JINJA_ENV = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
-        autoescape=select_autoescape(['html', 'xml'])
+        autoescape=select_autoescape(["html", "xml"]),
     )
-

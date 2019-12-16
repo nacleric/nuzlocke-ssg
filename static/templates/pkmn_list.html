@@ -2,5 +2,7 @@
 
 
 {% block content %}
-  <p class="subtitle">{{ name }} had a little lamb.</p>
+  {% for pokemon in pokemons %}
+    <p class="subtitle">{{ pokemon.name }} had a little lamb.</p>
+  {% endfor %}
 {% endblock %}
