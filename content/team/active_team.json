@@ -1,0 +1,22 @@
+{
+  "ditto": {
+    "nickname": "jerry",
+    "shiny": true,
+    "description": "tragically died"
+  },
+  "ditto": {
+    "nickname": "lizardon",
+    "shiny": true,
+    "description": "tragically died"
+  },
+  "ditto": {
+    "nickname": "gengod",
+    "shiny": false,
+    "description": "yeet"
+  },
+  "ditto": {
+    "nickname": "doodlegod",
+    "shiny": true,
+    "description": "super dead"
+  }
+}
