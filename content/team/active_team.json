@@ -1,22 +1,14 @@
-{
-  "ditto": {
-    "nickname": "jerry",
-    "shiny": true,
-    "description": "tragically died"
-  },
-  "ditto": {
-    "nickname": "lizardon",
-    "shiny": true,
-    "description": "tragically died"
-  },
-  "ditto": {
-    "nickname": "gengod",
+[
+  {
+    "pokemon": "ditto",
+    "nickname": "larry",
     "shiny": false,
-    "description": "yeet"
+    "description": "tragically died"
   },
-  "ditto": {
-    "nickname": "doodlegod",
+  {
+    "pokemon": "ditto",
+    "nickname": "pog",
     "shiny": true,
-    "description": "super dead"
+    "description": "tragically died"
   }
-}
+]

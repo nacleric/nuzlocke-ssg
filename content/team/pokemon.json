@@ -2,12 +2,18 @@
   {
     "pokemon": "bidoof",
     "nickname": "jerry",
-    "shiny": true,
+    "shiny": false,
     "description": "tragically died"
   },
   {
     "pokemon": "charizard",
     "nickname": "lizardon",
+    "shiny": true,
+    "description": "tragically died"
+  },
+  {
+    "pokemon": "bidoof",
+    "nickname": "jarry",
     "shiny": true,
     "description": "tragically died"
   }

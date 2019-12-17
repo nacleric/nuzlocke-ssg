@@ -1,5 +1,5 @@
 """ sprite_dl.py will handle downloads for the sprites asset folder """
-import os
+# import os
 import requests
 import json
 from typing import List
@@ -30,40 +30,36 @@ class PokemonData:
         self.description = description
 
 
-# class MetaData:
-#     def __init__(self, total_pkmn):
-#         self.total_pkmn = total_pkmn
-
-# def open_file() -> int:
-#     with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
-#         data = json.load(file)
-
-#     total_pkmn = len(data.items())
-
-#     return total_pkmn
-
-
 def open_file(c: Config) -> List:
     with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
         data = json.load(file)
 
     return data
 
+
 # TODO: make delete sprites that aren't in pokemon.json
 def download_sprite(p: PokemonData, c: Config) -> None:
+    """ Downloads sprites and inserts them into the proper folder """
+
     dl_location = f"{c.SPRITE_DIR}/{p.pokemon}.gif"
+
+    # Checks for shiny's and inserts the correct url
     if p.shiny is False:
-        request_url = f"{pkmn_sprite_url[c.SPRITE_TYPE]}/{p.pokemon}.gif"
+        notshiny = c.SPRITE_TYPE
+        request_url = f"{pkmn_sprite_url[notshiny]}/{p.pokemon}.gif"
     else:
         shiny = c.SPRITE_TYPE + "_shiny"
         request_url = f"{pkmn_sprite_url[shiny]}/{p.pokemon}.gif"
 
     r = requests.get(request_url)
-    # Retrieve HTTP meta-data
-    print(f"Status: {r.status_code}, Content: {r.headers['content-type']}")
 
+    # Retrieve HTTP meta-data
+    print(
+        f"-{p.pokemon}  Status: {r.status_code}, Content: {r.headers['content-type']}"
+    )
+
+    # Downloads the sprite if page is found
     if r.status_code != 404:
-        # Downloads the sprite if page is found
         with open(dl_location, "wb") as f:
             f.write(r.content)
     else:
@@ -73,12 +69,9 @@ def download_sprite(p: PokemonData, c: Config) -> None:
 def main(c: Config) -> None:
     data = open_file(c)
 
-    file_list = os.listdir(c.SPRITE_DIR)
-
     for i in data:
         pkmn = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
-        if i not in file_list:
-            download_sprite(pkmn, config)
+        download_sprite(pkmn, config)
 
 
 if __name__ == "__main__":
