@@ -2,7 +2,7 @@
 import os
 import requests
 import json
-from typing import Dict
+from typing import List
 
 from config import Config
 
@@ -23,8 +23,8 @@ pkmn_sprite_url = {
 class PokemonData:
     """ Struct that holds json data """
 
-    def __init__(self, name: str, nickname: str, shiny: bool, description: str):
-        self.name = name
+    def __init__(self, pokemon: str, nickname: str, shiny: bool, description: str):
+        self.pokemon = pokemon
         self.nickname = nickname
         self.shiny = shiny
         self.description = description
@@ -43,20 +43,20 @@ class PokemonData:
 #     return total_pkmn
 
 
-def open_file(c: Config) -> Dict:
+def open_file(c: Config) -> List:
     with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
         data = json.load(file)
 
     return data
 
-
+# TODO: make delete sprites that aren't in pokemon.json
 def download_sprite(p: PokemonData, c: Config) -> None:
-    dl_location = f"{c.SPRITE_DIR}/{p.name}.gif"
+    dl_location = f"{c.SPRITE_DIR}/{p.pokemon}.gif"
     if p.shiny is False:
-        request_url = f"{pkmn_sprite_url[c.SPRITE_TYPE]}/{p.name}.gif"
+        request_url = f"{pkmn_sprite_url[c.SPRITE_TYPE]}/{p.pokemon}.gif"
     else:
         shiny = c.SPRITE_TYPE + "_shiny"
-        request_url = f"{pkmn_sprite_url[shiny]}/{p.name}.gif"
+        request_url = f"{pkmn_sprite_url[shiny]}/{p.pokemon}.gif"
 
     r = requests.get(request_url)
     # Retrieve HTTP meta-data
@@ -75,8 +75,8 @@ def main(c: Config) -> None:
 
     file_list = os.listdir(c.SPRITE_DIR)
 
-    for i in data.items():
-        pkmn = PokemonData(i[0], i[1]["nickname"], i[1]["shiny"], i[1]["description"],)
+    for i in data:
+        pkmn = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
         if i not in file_list:
             download_sprite(pkmn, config)
 

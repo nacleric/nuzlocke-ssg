@@ -1,6 +1,6 @@
 import argparse
 import os
-from typing import List, Dict
+from typing import List
 
 from config import Config
 import sprite_dl
@@ -9,11 +9,11 @@ import sprite_dl
 config = Config()
 
 
-def list_of_pokemon(data: Dict) -> List:
+def list_of_pokemon(data: List) -> List:
     pkmn_list = []
-    for i in data.items():
+    for i in data:
         pkmn = sprite_dl.PokemonData(
-            i[0], i[1]["nickname"], i[1]["shiny"], i[1]["description"],
+            i["pokemon"], i["nickname"], i["shiny"], i["description"]
         )
         pkmn_list.append(pkmn)
 
