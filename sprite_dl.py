@@ -1,5 +1,5 @@
 """ sprite_dl.py will handle downloads for the sprites asset folder """
-# import os
+import os
 import requests
 import json
 from typing import List
@@ -11,7 +11,6 @@ config = Config()
 
 
 # TODO: if asset not found replace with missingno
-# have an option to use either bw or xy
 pkmn_sprite_url = {
     "bw": "https://play.pokemonshowdown.com/sprites/gen5ani",
     "bw_shiny": "https://play.pokemonshowdown.com/sprites/gen5ani-shiny",
@@ -37,17 +36,16 @@ def open_file(c: Config) -> List:
     return data
 
 
-# TODO: make delete sprites that aren't in pokemon.json
 def download_sprite(p: PokemonData, c: Config) -> None:
     """ Downloads sprites and inserts them into the proper folder """
 
-    dl_location = f"{c.SPRITE_DIR}/{p.pokemon}.gif"
-
     # Checks for shiny's and inserts the correct url
     if p.shiny is False:
+        dl_location = f"{c.SPRITE_DIR}/{p.pokemon}.gif"
         notshiny = c.SPRITE_TYPE
         request_url = f"{pkmn_sprite_url[notshiny]}/{p.pokemon}.gif"
     else:
+        dl_location = f"{c.SHINY_SPRITE_DIR}/{p.pokemon}.gif"
         shiny = c.SPRITE_TYPE + "_shiny"
         request_url = f"{pkmn_sprite_url[shiny]}/{p.pokemon}.gif"
 
@@ -63,12 +61,28 @@ def download_sprite(p: PokemonData, c: Config) -> None:
         with open(dl_location, "wb") as f:
             f.write(r.content)
     else:
-        print(f"ERROR: {p.name.upper()} might be spelled incorrectly")
+        print(f"ERROR: {p.pokemon.upper()} might be spelled incorrectly")
+
+
+def delete_sprites(c: Config) -> None:
+    """ Clears sprite folders """
+    shiny_folder = os.listdir(c.SHINY_SPRITE_DIR)
+    sprite_folder = os.listdir(c.SPRITE_DIR)
+
+    for file in shiny_folder:
+        file_path = os.path.join(c.SHINY_SPRITE_DIR, file)
+        os.remove(file_path)
+        print(f"DELETING shiny {file}")
+    for file in sprite_folder:
+        file_path = os.path.join(c.SPRITE_DIR, file)
+        os.remove(file_path)
+        print(f"DELETING {file}")
 
 
 def main(c: Config) -> None:
     data = open_file(c)
 
+    delete_sprites(c)
     for i in data:
         pkmn = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
         download_sprite(pkmn, config)

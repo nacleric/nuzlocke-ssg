@@ -49,6 +49,8 @@ def main() -> None:
         build(config)
     elif args.command == "sprites":
         sprite_dl.main(config)
+    elif args.command == "delete":
+        sprite_dl.delete_sprites(config)
     elif args.command == "help":
         print(
             "Commands: \n"

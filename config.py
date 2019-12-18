@@ -11,6 +11,7 @@ class Config:
 
     # directory to download sprites in
     SPRITE_DIR = "./static/sprites"
+    SHINY_SPRITE_DIR = "./static/shiny_sprites"
     TEMPLATE_DIR = "./static/templates"
     CSS_DIR = "./static/stylesheets"
     BUILD_DIR = "./build"
