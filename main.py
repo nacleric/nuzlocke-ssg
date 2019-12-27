@@ -9,7 +9,7 @@ import sprite_dl
 config = Config()
 
 
-def list_of_pokemon(data: List) -> List:
+def token_pokemon_list(data: List) -> List:
     pkmn_list = []
     for i in data:
         pkmn = sprite_dl.PokemonData(
@@ -22,16 +22,16 @@ def list_of_pokemon(data: List) -> List:
 
 def build(c: Config) -> None:
     data = sprite_dl.open_file(c)
-    pkmn_list = list_of_pokemon(data)
+    pkmn_list = token_pokemon_list(data)
 
     template = c.JINJA_ENV.get_template("pkmn_list.html")
     output = template.render(pokemons=pkmn_list)
     print(output)
 
-    # CREATES NEW FILE
-    # basedir = os.path.dirname(c.BUILD_DIR)
-    # with open('mons.html', 'w'):
-    #     print("in this func")
+    # Creates File and writes list of pokemon to it
+    with open(f"{c.BUILD_DIR}/pokemon_list.html", "w") as f:
+        print("Writing to build folder...")
+        f.write(output)
 
 
 def main() -> None:
@@ -41,9 +41,10 @@ def main() -> None:
 
     if args.command == "build":
         if os.path.isdir(config.BUILD_DIR):
-            print("build directory exists")
+            # print("Build directory exists")
+            pass
         else:
-            print("build directory doesn't exist")
+            print("Build directory doesn't exist")
             os.mkdir(config.BUILD_DIR)
         sprite_dl.main(config)
         build(config)

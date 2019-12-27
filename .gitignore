@@ -1,5 +1,10 @@
+# editor
 /.vscode
+
+# cache
+/.mypy_cache
+/__pycache__
+
 /venv
 /devtools
-/__pycache__
-/.mypy_cache
+/build

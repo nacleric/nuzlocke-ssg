@@ -5,6 +5,7 @@ class Config:
     # select bw for 2d and xy for 3d models
     SPRITE_TYPE = "bw"
 
+    BUILD_DIR = "./build"
     # Markup
     CONTENT_POKEMON_DIR = "./content/team"
     CONTENT_POST_DIR = "./content/posts"
