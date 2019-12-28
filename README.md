@@ -1,5 +1,13 @@
-static site generator for nuzlocke challenges
+## Nuzlocke-SSG
+---
+A Static site generator for nuzlocke challenges
 
-TODO:
-- sprite_dl will download all sprites (from toml?) and insert to static/sprites/ folder
-- if theres an error replace with missigno
+## TODO:
+#### [Important]
+- Make templates nicer
+- Add a commandline argument to create new Posts
+- Organize content in the build folder
+- Create a function that deletes Posts before build
+
+#### [Not Important]
+- Might add support for M/F sprites
