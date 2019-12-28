@@ -1,5 +1,4 @@
 ## Nuzlocke-SSG
----
 A Static site generator for nuzlocke challenges
 
 ## TODO:
