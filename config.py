@@ -2,7 +2,7 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 
 class Config:
-    # select bw for 2d and xy for 3d models
+    # Select bw for 2d and xy for 3d models
     SPRITE_TYPE = "bw"
 
     # Location of generated html
@@ -12,13 +12,20 @@ class Config:
     CONTENT_POKEMON_DIR = "./content/team"
     CONTENT_POST_DIR = "./content/posts"
 
-    # directory to download sprites in
+    # Directory to download sprites in
     SPRITE_DIR = "./static/sprites"
     SHINY_SPRITE_DIR = "./static/shiny_sprites"
     TEMPLATE_DIR = "./static/templates"
     CSS_DIR = "./static/stylesheets"
-    BUILD_DIR = "./build"
+
+    # Jinja environment variable
     JINJA_ENV = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
         autoescape=select_autoescape(["html", "xml"]),
     )
+    
+    # Build
+    BUILD_DIR = "./build"
+    B_SPRITE_DIR = f"{BUILD_DIR}/static/sprites"
+    B_SHINY_SPRITE_DIR = f"{BUILD_DIR}/static/shiny_sprites"
+

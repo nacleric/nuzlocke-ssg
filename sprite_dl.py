@@ -1,8 +1,8 @@
 """ sprite_dl.py will handle downloads for the sprites asset folder """
+from typing import List
+import json
 import os
 import requests
-import json
-from typing import List
 
 from config import Config
 
@@ -22,11 +22,19 @@ pkmn_sprite_url = {
 class PokemonData:
     """ Struct that holds json data """
 
-    def __init__(self, pokemon: str, nickname: str, shiny: bool, description: str):
+    def __init__(
+        self,
+        pokemon: str,
+        nickname: str,
+        shiny: bool,
+        description: str,
+        asset_location=None,
+    ):
         self.pokemon = pokemon
         self.nickname = nickname
         self.shiny = shiny
         self.description = description
+        self.asset_location = asset_location
 
 
 def open_file(c: Config) -> List:
@@ -41,11 +49,11 @@ def download_sprite(p: PokemonData, c: Config) -> None:
 
     # Checks for shiny's and inserts the correct url
     if p.shiny is False:
-        dl_location = f"{c.SPRITE_DIR}/{p.pokemon}.gif"
+        dl_location = f"{c.B_SPRITE_DIR}/{p.pokemon}.gif"
         notshiny = c.SPRITE_TYPE
         request_url = f"{pkmn_sprite_url[notshiny]}/{p.pokemon}.gif"
     else:
-        dl_location = f"{c.SHINY_SPRITE_DIR}/{p.pokemon}.gif"
+        dl_location = f"{c.B_SHINY_SPRITE_DIR}/{p.pokemon}.gif"
         shiny = c.SPRITE_TYPE + "_shiny"
         request_url = f"{pkmn_sprite_url[shiny]}/{p.pokemon}.gif"
 
@@ -53,7 +61,7 @@ def download_sprite(p: PokemonData, c: Config) -> None:
 
     # Retrieve HTTP meta-data
     print(
-        f"-{p.pokemon}  Status: {r.status_code}, Content: {r.headers['content-type']}"
+        f"[LOG] DOWNLOADING {p.pokemon}  Status: {r.status_code}, Content: {r.headers['content-type']}"
     )
 
     # Downloads the sprite if page is found
@@ -61,25 +69,27 @@ def download_sprite(p: PokemonData, c: Config) -> None:
         with open(dl_location, "wb") as f:
             f.write(r.content)
     else:
-        print(f"ERROR: {p.pokemon.upper()} might be spelled incorrectly")
+        print(f"[ERROR] {p.pokemon.upper()} might be spelled incorrectly")
 
 
 def delete_sprites(c: Config) -> None:
     """ Clears sprite folders """
-    shiny_folder = os.listdir(c.SHINY_SPRITE_DIR)
-    sprite_folder = os.listdir(c.SPRITE_DIR)
+    shiny_folder = os.listdir(c.B_SHINY_SPRITE_DIR)
+    sprite_folder = os.listdir(c.B_SPRITE_DIR)
 
     for file in shiny_folder:
-        file_path = os.path.join(c.SHINY_SPRITE_DIR, file)
+        file_path = os.path.join(c.B_SHINY_SPRITE_DIR, file)
         os.remove(file_path)
-        print(f"DELETING shiny {file}")
+        print(f"[LOG] DELETING shiny {file}")
     for file in sprite_folder:
-        file_path = os.path.join(c.SPRITE_DIR, file)
+        file_path = os.path.join(c.B_SPRITE_DIR, file)
         os.remove(file_path)
-        print(f"DELETING {file}")
+        print(f"[LOG] DELETING {file}")
 
 
 def main(c: Config) -> None:
+    """ Tokenizes pokemon json data """
+
     data = open_file(c)
 
     delete_sprites(c)
