@@ -56,14 +56,14 @@ def generate_home(c: Config) -> None:
     with open(f"{c.CONTENT_POKEMON_DIR}/active_team.json") as f:
         print("[LOG] Tokenizing active_team.json")
         json_data = json.load(f)
-
+        
         active_team = []
         for i in json_data:
             if i["shiny"] == True:
-                asset_location = f"{c.B_SHINY_SPRITE_DIR}/{i["pokemon"]}.jpg"
+                asset_location = f"{c.SHINY_SPRITE_DIR}/{i['pokemon']}.gif"
             else:
-                asset_location = f"{c.B_SPRITE_DIR}/{i["pokemon"]}.jpg"
-            pkmn = PokemonData(
+                asset_location = f"{c.SPRITE_DIR}/{i['pokemon']}.gif"
+            pkmn = sprite_dl.PokemonData(
                 i["pokemon"],
                 i["nickname"],
                 i["shiny"],
@@ -71,14 +71,14 @@ def generate_home(c: Config) -> None:
                 asset_location
             )
             active_team.append(pkmn)
+            sprite_dl.download_sprite(pkmn, c) # TODO: test this
 
         output = template.render(pokemons=active_team)
-        print("[LOG] Generated home.html")
 
     # Creates File and writes list of pokemon to it
     rendered_file = "index.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
-        print("[LOG] Writing to build folder...")
+        print("[LOG] Generated index.html...")
         f.write(output)
 
 

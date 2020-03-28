@@ -2,6 +2,19 @@
 
 
 {% block content %}
-  <h1> Introduction <h1>
-  <p> Twitter </p>
+  <div class="banner">
+    <div class="banner_img_border"></div>
+    <h1 class="banner_title">Eric Nuzlockes</h1>
+    <p class="banner_text">Hey this is my nuzlocke page, you can keep track of all my nuzlocke runs here</p>
+  </div>
+
+  <div class="team">
+    <h1 class="team_title">Current Team:</h1>
+    {% for pokemon in pokemons %}
+      <div>
+        <p> {{ pokemon.asset_location }}
+        <img src="{{ pokemon.asset_location }}">
+      </div>
+    {% endfor %}
+  </div>
 {% endblock %}

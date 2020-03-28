@@ -1,3 +1,44 @@
-.testStyles {
-  color: red;
+body {
+  font-family: "Roboto Mono";
+  margin-left: 60px;
+  margin-right: 60px;
+}
+
+.container {
+  margin: auto;
+}
+
+.banner {
+  padding-bottom: 20px;
+}
+
+.banner_img_border {
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+  width: 200px;
+  background-color: #bbb;
+  border-radius: 50%;
+  border-style: dashed;
+  display: block;
+}
+
+.banner_title {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.banner_text {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 450px;
+}
+
+.team {
+  padding-bottom: 20px;
+}
+
+.team_title {
+  font-size: 2rem;
 }
