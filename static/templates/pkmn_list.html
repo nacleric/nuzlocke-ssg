@@ -3,6 +3,11 @@
 
 {% block content %}
   {% for pokemon in pokemons %}
-    <p class="subtitle">{{ pokemon.pokemon }} had a little lamb.</p>
+    <div class="pokemon-list-item">
+      <img class="pokemon-list-item-asset" src="./static/sprites/ditto.gif">
+      <p>{{ pokemon.pokemon }} had a little lamb.</p>
+      <p>{{ pokemon.description }}</p>
+    </div>
+
   {% endfor %}
 {% endblock %}

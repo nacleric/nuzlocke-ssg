@@ -29,10 +29,6 @@ def build(c: Config) -> None:
     generate_styles(c)
 
 
-def add_link_to_dict() -> Dict:
-    pass
-
-
 def generate_pokemon_list(c: Config) -> None:
     data = sprite_dl.open_file(c)
     pkmn_list = token_pokemon_list(data)
@@ -42,7 +38,7 @@ def generate_pokemon_list(c: Config) -> None:
     print(output)  # TODO: remove later
 
     # Creates File and writes list of pokemon to it
-    rendered_file = "pokemon_list.html"
+    rendered_file = "pkmn_list.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
         print("[LOG] Writing to build folder...")
         f.write(output)

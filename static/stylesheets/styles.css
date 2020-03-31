@@ -1,7 +1,12 @@
+:root {
+  --main-color: #8B4513; /* Brown */
+}
+
 body {
   font-family: "Roboto Mono";
   margin-left: 60px;
   margin-right: 60px;
+  color: var(--main-color);
 }
 
 .container {
@@ -12,7 +17,7 @@ body {
   padding-bottom: 20px;
 }
 
-.banner_img_border {
+.banner-img-border {
   margin-left: auto;
   margin-right: auto;
   height: 200px;
@@ -23,12 +28,12 @@ body {
   display: block;
 }
 
-.banner_title {
+.banner-title {
   text-align: center;
   font-size: 2rem;
 }
 
-.banner_text {
+.banner-text {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -36,9 +41,87 @@ body {
 }
 
 .team {
-  padding-bottom: 20px;
 }
 
-.team_title {
+.team-title {
   font-size: 2rem;
 }
+
+.team-section {
+  /* Flexbox */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.team-section-box {
+  /* subject to change */
+  border-style: dashed;
+  width: 100px;
+  padding: 50px;
+  margin-bottom: 10px;
+}
+
+.team-section-box-text {
+  text-align: center;
+}
+
+.pokemon-asset {
+  height: 120%;
+  width: 120%;
+  margin-left: auto;
+  margin-right: auto;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.pokemon-list {
+  /* Flexbox */
+  display: flex;
+  flex-direction: column;
+}
+
+.pokemon-list-item {
+  /* Flexbox */
+  display: flex;
+  /* style */
+  border-style: dashed;
+  padding: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.pokemon-list-item-asset {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  height: 50px;
+  width: 70px;
+  margin-bottom: auto;
+  margin-top: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  
+}
+
+.pokemon-list-item-text {
+  /* Flexbox */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* style */  
+  margin-left: 20px
+}
+
+.pokemon-list-item-text-nickname {
+  font-size: 1.35rem;
+}
+
+.pokemon-list-item-text-description {
+  font-size: 1rem; 
+}
+
