@@ -18,5 +18,5 @@ A Static site generator for nuzlocke challenges
 #### [Possible variable name changes]
 - When reading files changes "as f" to file
 - change generate to build in functions
-- Change home.html to just index.html [cant search and replace]
-- change pkmn_list.html -> pokemon_list.html [cant search and replace]
+- Change index.html to just index.html [cant search and replace]
+- change pokemon_list.html -> pokemon_list.html [cant search and replace]

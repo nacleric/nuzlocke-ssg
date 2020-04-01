@@ -13,8 +13,20 @@ body {
   margin: auto;
 }
 
+.nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .banner {
-  padding-bottom: 20px;
+  padding-top: 40px;
+  padding-bottom: 10px;
 }
 
 .banner-img-border {
@@ -52,7 +64,8 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  /*justify-content: space-around;*/
+  justify-content: center;
 }
 
 .team-section-box {
@@ -124,4 +137,3 @@ body {
 .pokemon-list-item-text-description {
   font-size: 1rem; 
 }
-

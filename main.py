@@ -11,43 +11,43 @@ config = Config()
 
 
 def token_pokemon_list(data: List) -> List:
-    pkmn_list = []
+    pokemon_list = []
     for i in data:
-        pkmn = sprite_dl.PokemonData(
+        pokemon = sprite_dl.PokemonData(
             i["pokemon"], i["nickname"], i["shiny"], i["description"]
         )
-        pkmn_list.append(pkmn)
+        pokemon_list.append(pokemon)
 
-    return pkmn_list
+    return pokemon_list
 
 
 def build(c: Config) -> None:
     # links = {}
     generate_pokemon_list(c)
-    generate_home(c)
+    generate_index(c)
     generate_posts(c)
     generate_styles(c)
 
 
 def generate_pokemon_list(c: Config) -> None:
     data = sprite_dl.open_file(c)
-    pkmn_list = token_pokemon_list(data)
+    pokemon_list = token_pokemon_list(data)
 
-    template = c.JINJA_ENV.get_template("pkmn_list.html")
-    output = template.render(pokemons=pkmn_list)
+    template = c.JINJA_ENV.get_template("pokemon_list.html")
+    output = template.render(pokemons=pokemon_list)
 
     # Creates File and writes list of pokemon to it
-    rendered_file = "pkmn_list.html"
+    rendered_file = "pokemon_list.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
         print("[LOG] Writing to build folder...")
         f.write(output)
 
 
-def generate_home(c: Config) -> None:
-    """ Home page for the static site. Contains Active team and links """
-    template = c.JINJA_ENV.get_template("home.html")
+def generate_index(c: Config) -> None:
+    """ index page for the static site. Contains Active team and links """
+    template = c.JINJA_ENV.get_template("index.html")
 
-    # Grabbing meta-data of active_team.json to insert into Home template
+    # Grabbing meta-data of active_team.json to insert into index template
     with open(f"{c.CONTENT_POKEMON_DIR}/active_team.json") as f:
         print("[LOG] Tokenizing active_team.json")
         json_data = json.load(f)
@@ -58,15 +58,15 @@ def generate_home(c: Config) -> None:
                 asset_location = f"{c.SHINY_SPRITE_DIR}/{i['pokemon']}.gif"
             else:
                 asset_location = f"{c.SPRITE_DIR}/{i['pokemon']}.gif"
-            pkmn = sprite_dl.PokemonData(
+            pokemon = sprite_dl.PokemonData(
                 i["pokemon"],
                 i["nickname"],
                 i["shiny"],
                 i["description"],
                 asset_location,
             )
-            active_team.append(pkmn)
-            sprite_dl.download_sprite(pkmn, c)  # TODO: test this
+            active_team.append(pokemon)
+            sprite_dl.download_sprite(pokemon, c)  # TODO: test this
 
         output = template.render(pokemons=active_team)
 

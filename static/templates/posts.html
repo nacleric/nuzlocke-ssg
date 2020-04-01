@@ -3,6 +3,12 @@
 
 {% block content %}
   <div class="list_of_posts">
+    {% for post in posts %}
+      <div class="post-item">
+        <p> {{ post.filename }} </p>
+        <p> {{ post.file_location }} </p>
+      </div>
+    {% endfor %}
 
   </div>
 

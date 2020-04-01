@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <!-- Intro -->
+  <div class="banner">
+    <div class="banner-img-border"></div>
+    <h1 class="banner-title">Eric Nuzlockes</h1>
+    <p class="banner-text">Hey this is my nuzlocke page, you can keep track of all my nuzlocke runs here</p>
+  </div>
+
+  <div class="team">
+    <h1 class="team-title">Current Team:</h1>
+    <div class="team-section">
+    {% for pokemon in pokemons %}
+      <div class="team-section-box">
+        <img class="pokemon-asset" src="{{ pokemon.asset_location }}">
+        <p class="team-section-box-text">{{ pokemon.nickname }}</p>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock %}

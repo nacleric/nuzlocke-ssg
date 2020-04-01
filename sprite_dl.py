@@ -11,7 +11,7 @@ config = Config()
 
 
 # TODO: if asset not found replace with missingno
-pkmn_sprite_url = {
+pokemon_sprite_url = {
     "bw": "https://play.pokemonshowdown.com/sprites/gen5ani",
     "bw_shiny": "https://play.pokemonshowdown.com/sprites/gen5ani-shiny",
     "xy": "https://play.pokemonshowdown.com/sprites/ani",
@@ -51,11 +51,11 @@ def download_sprite(p: PokemonData, c: Config) -> None:
     if p.shiny is False:
         dl_location = f"{c.B_SPRITE_DIR}/{p.pokemon}.gif"
         notshiny = c.SPRITE_TYPE
-        request_url = f"{pkmn_sprite_url[notshiny]}/{p.pokemon}.gif"
+        request_url = f"{pokemon_sprite_url[notshiny]}/{p.pokemon}.gif"
     else:
         dl_location = f"{c.B_SHINY_SPRITE_DIR}/{p.pokemon}.gif"
         shiny = c.SPRITE_TYPE + "_shiny"
-        request_url = f"{pkmn_sprite_url[shiny]}/{p.pokemon}.gif"
+        request_url = f"{pokemon_sprite_url[shiny]}/{p.pokemon}.gif"
 
     r = requests.get(request_url)
 
@@ -94,8 +94,8 @@ def main(c: Config) -> None:
 
     delete_sprites(c)
     for i in data:
-        pkmn = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
-        download_sprite(pkmn, config)
+        pokemon = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
+        download_sprite(pokemon, config)
 
 
 if __name__ == "__main__":

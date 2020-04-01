@@ -5,8 +5,10 @@
   {% for pokemon in pokemons %}
     <div class="pokemon-list-item">
       <img class="pokemon-list-item-asset" src="./static/sprites/ditto.gif">
-      <p>{{ pokemon.pokemon }} had a little lamb.</p>
-      <p>{{ pokemon.description }}</p>
+      <div class="pokemon-list-item-text">
+        <p class="pokemon-list-item-nickname">{{ pokemon.pokemon }} had a little lamb.</p>
+        <p class="pokemon-list-item-description">{{ pokemon.description }}</p>
+      </div>
     </div>
 
   {% endfor %}
