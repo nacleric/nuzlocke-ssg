@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, NamedTuple
 import argparse
 import json
 import os
@@ -35,7 +35,6 @@ def generate_pokemon_list(c: Config) -> None:
 
     template = c.JINJA_ENV.get_template("pkmn_list.html")
     output = template.render(pokemons=pkmn_list)
-    print(output)  # TODO: remove later
 
     # Creates File and writes list of pokemon to it
     rendered_file = "pkmn_list.html"
@@ -52,7 +51,7 @@ def generate_home(c: Config) -> None:
     with open(f"{c.CONTENT_POKEMON_DIR}/active_team.json") as f:
         print("[LOG] Tokenizing active_team.json")
         json_data = json.load(f)
-        
+
         active_team = []
         for i in json_data:
             if i["shiny"] == True:
@@ -64,10 +63,10 @@ def generate_home(c: Config) -> None:
                 i["nickname"],
                 i["shiny"],
                 i["description"],
-                asset_location
+                asset_location,
             )
             active_team.append(pkmn)
-            sprite_dl.download_sprite(pkmn, c) # TODO: test this
+            sprite_dl.download_sprite(pkmn, c)  # TODO: test this
 
         output = template.render(pokemons=active_team)
 
@@ -78,8 +77,20 @@ def generate_home(c: Config) -> None:
         f.write(output)
 
 
+# TODO: Finish this. Scans files for date and title
 def generate_posts(c: Config) -> None:
     """ Parses markdown files in ./content and writes to file in ./build """
+    HTML_FILE = "posts.html"
+
+    class PostToken(NamedTuple):
+        # title: str
+        filename: str
+        file_location: str
+
+    # Renders the template that redirects to all the posts
+    template = c.JINJA_ENV.get_template(HTML_FILE)
+
+    post_token_list = []
     post_folder = os.listdir(c.CONTENT_POST_DIR)
     for file in post_folder:
         # Reads md file from content folder
@@ -89,10 +100,18 @@ def generate_posts(c: Config) -> None:
             output = content_template.render(content=content)
 
         # Copies to build directory
-        with open(f"{c.BUILD_DIR}/posts/{file[:-3]}.html", "w") as f:
-            print(f"Creating content for {file[:-3]}.html...")
+        B_post_location = f"{c.BUILD_DIR}/posts/{file}"
+        with open(B_post_location, "w") as f:
+            print(f"[LOG] Creating content for {file}...")
             f.write(output)
 
+        post_token = PostToken(filename=file, file_location=B_post_location)
+        post_token_list.append(post_token)
+
+    rendered_posts_html = template.render(posts=post_token_list)
+    with open(f"{c.BUILD_DIR}/{HTML_FILE}", "w") as f:
+        print(f"[LOG] Generated {HTML_FILE}...")
+        f.write(rendered_posts_html)
 
 def generate_styles(c: Config) -> None:
     """ Parses stylesheets in ./static and writes to ./build/stylesheets """
@@ -131,6 +150,7 @@ def main() -> None:
             os.mkdir(f"{config.BUILD_DIR}/static/stylesheets")
             os.mkdir(f"{config.BUILD_DIR}/static/shiny_sprites")
             os.mkdir(f"{config.BUILD_DIR}/static/sprites")
+            os.mkdir(f"{config.BUILD_DIR}/playthroughs")
         sprite_dl.main(config)
         build(config)
     elif args.command == "sprites":
