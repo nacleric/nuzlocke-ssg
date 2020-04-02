@@ -4,8 +4,8 @@
 
 body {
   font-family: "Roboto Mono";
-  margin-left: 60px;
-  margin-right: 60px;
+  margin-left: 100px;
+  margin-right: 100px;
   color: var(--main-color);
 }
 
@@ -25,7 +25,6 @@ body {
 }
 
 .banner {
-  padding-top: 40px;
   padding-bottom: 10px;
 }
 
@@ -53,10 +52,12 @@ body {
 }
 
 .team {
+  margin-top: 10px;
 }
 
 .team-title {
   font-size: 2rem;
+  text-align: center;
 }
 
 .team-section {
