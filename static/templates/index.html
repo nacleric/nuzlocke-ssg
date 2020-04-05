@@ -5,7 +5,7 @@
   <!-- Intro -->
   <div class="banner">
     <div class="banner-img-border"></div>
-    <h1 class="banner-title">Eric Nuzlockes</h1>
+    <h1 class="banner-title">Your name here</h1>
     <p class="banner-text">Hey this is my nuzlocke page, you can keep track of all my nuzlocke runs here</p>
   </div>
 
@@ -15,7 +15,7 @@
     {% for pokemon in pokemons %}
       <div class="team-section-box">
         <img class="pokemon-asset" src="{{ pokemon.asset_location }}">
-        <p class="team-section-box-text">{{ pokemon.nickname }}</p>
+        <p class="team-section-box-nickname">{{ pokemon.nickname }}</p>
       </div>
     {% endfor %}
     </div>

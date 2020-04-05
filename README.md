@@ -4,6 +4,7 @@ A Static site generator for nuzlocke challenges
 ## TODO:
 #### [Important]
 - Make templates nicer (in progress)
+- Better support for content generation (mainly posts) might need beautifulsoup
 - Create a function that deletes Posts before build
 
 #### [Not Important]

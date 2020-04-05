@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List, Dict, NamedTuple
 import argparse
 import json
@@ -105,13 +106,14 @@ def generate_posts(c: Config) -> None:
             print(f"[LOG] Creating content for {file}...")
             f.write(output)
 
-        post_token = PostToken(filename=file, file_location=B_post_location)
+        post_token = PostToken(filename=file, file_location=f"/posts/{file}")
         post_token_list.append(post_token)
 
     rendered_posts_html = template.render(posts=post_token_list)
     with open(f"{c.BUILD_DIR}/{HTML_FILE}", "w") as f:
         print(f"[LOG] Generated {HTML_FILE}...")
         f.write(rendered_posts_html)
+
 
 def generate_styles(c: Config) -> None:
     """ Parses stylesheets in ./static and writes to ./build/stylesheets """
@@ -127,8 +129,13 @@ def generate_styles(c: Config) -> None:
             f.write(css_file)
 
 
-# TODO: Might need to wipe all posts to not worry about overwritting
-def delete_posts(c: Config) -> None:
+def new_post(c: Config) -> None:
+    current_date = datetime.now()
+    with open(f"{c.CONTENT_POST_DIR}/{current_date}.html", "w") as f:
+        f.write(f"<div>{current_date}</div>")
+
+
+def generate_content(c: Config) -> None:
     pass
 
 
@@ -150,9 +157,10 @@ def main() -> None:
             os.mkdir(f"{config.BUILD_DIR}/static/stylesheets")
             os.mkdir(f"{config.BUILD_DIR}/static/shiny_sprites")
             os.mkdir(f"{config.BUILD_DIR}/static/sprites")
-            os.mkdir(f"{config.BUILD_DIR}/playthroughs")
         sprite_dl.main(config)
         build(config)
+    elif args.command == "newpost":
+        new_post(config)
     elif args.command == "sprites":
         sprite_dl.main(config)
     elif args.command == "delete":
@@ -160,8 +168,9 @@ def main() -> None:
     elif args.command == "help":
         print(
             "Commands: \n"
-            "build      generates the site and downloads assets \n"
-            "sprites    only downloads the sprites"
+            "build  |   generates the site and downloads assets \n"
+            "sprites|   only downloads the sprites\n"
+            "newpost|   generates a markdown file for content"
         )
     else:
         print("Wrong command. Enter 'help'")

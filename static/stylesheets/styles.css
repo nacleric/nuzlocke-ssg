@@ -4,9 +4,16 @@
 
 body {
   font-family: "Roboto Mono";
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 150px;
+  margin-right: 150px;
   color: var(--main-color);
+}
+
+hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .container {
@@ -44,7 +51,7 @@ body {
   font-size: 2rem;
 }
 
-.banner-text {
+.banner-text{
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -73,12 +80,13 @@ body {
   /* subject to change */
   border-style: dashed;
   width: 100px;
-  padding: 50px;
+  padding: 30px;
   margin-bottom: 10px;
 }
 
-.team-section-box-text {
+.team-section-box-nickname {
   text-align: center;
+  font-size: 1.25rem;
 }
 
 .pokemon-asset {
@@ -118,8 +126,7 @@ body {
   margin-bottom: auto;
   margin-top: auto;
   margin-left: 10px;
-  margin-right: 10px;
-  
+  margin-right: 10px; 
 }
 
 .pokemon-list-item-text {
@@ -138,3 +145,36 @@ body {
 .pokemon-list-item-text-description {
   font-size: 1rem; 
 }
+
+.posts-section { 
+}
+
+.posts-item {
+  
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+}
+
+.text {
+  font-size: 1rem;
+}
+
+@media all and (max-width: 750px) {
+  body {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
+
+
+
+
+
+
