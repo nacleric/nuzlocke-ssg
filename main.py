@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from datetime import datetime
 from typing import List, Dict, NamedTuple
 import argparse
@@ -23,7 +24,6 @@ def token_pokemon_list(data: List) -> List:
 
 
 def build(c: Config) -> None:
-    # links = {}
     generate_pokemon_list(c)
     generate_index(c)
     generate_posts(c)
@@ -31,13 +31,13 @@ def build(c: Config) -> None:
 
 
 def generate_pokemon_list(c: Config) -> None:
+    """ Populates pokemon_list.html """
     data = sprite_dl.open_file(c)
     pokemon_list = token_pokemon_list(data)
 
     template = c.JINJA_ENV.get_template("pokemon_list.html")
     output = template.render(pokemons=pokemon_list)
 
-    # Creates File and writes list of pokemon to it
     rendered_file = "pokemon_list.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
         print("[LOG] Writing to build folder...")
@@ -45,7 +45,7 @@ def generate_pokemon_list(c: Config) -> None:
 
 
 def generate_index(c: Config) -> None:
-    """ index page for the static site. Contains Active team and links """
+    """ Index page for the static site """
     template = c.JINJA_ENV.get_template("index.html")
 
     # Grabbing meta-data of active_team.json to insert into index template
@@ -80,11 +80,17 @@ def generate_index(c: Config) -> None:
 
 # TODO: Finish this. Scans files for date and title
 def generate_posts(c: Config) -> None:
-    """ Parses markdown files in ./content and writes to file in ./build """
+    """ Generates the posts.html file (contains list of blogposts and sorts them)
+        Also parses markdown files in ./content and writes to file in ./build
+    """
+
+    delete_posts(c)  # Clears build folder
+
     HTML_FILE = "posts.html"
 
     class PostToken(NamedTuple):
-        # title: str
+        title: str
+        date: str
         filename: str
         file_location: str
 
@@ -106,8 +112,17 @@ def generate_posts(c: Config) -> None:
             print(f"[LOG] Creating content for {file}...")
             f.write(output)
 
-        post_token = PostToken(filename=file, file_location=f"/posts/{file}")
+        soup = BeautifulSoup(content, "html.parser")
+        soup_title = soup.find("div", class_="title").get_text()
+        soup_date = soup.find("div", class_="subtitle").get_text()
+        post_token = PostToken(
+            title=soup_title,
+            date=soup_date,
+            filename=file,
+            file_location=f"/posts/{file}",
+        )
         post_token_list.append(post_token)
+        post_token_list.sort(key=lambda x: x.date, reverse=True)
 
     rendered_posts_html = template.render(posts=post_token_list)
     with open(f"{c.BUILD_DIR}/{HTML_FILE}", "w") as f:
@@ -130,9 +145,22 @@ def generate_styles(c: Config) -> None:
 
 
 def new_post(c: Config) -> None:
-    current_date = datetime.now()
-    with open(f"{c.CONTENT_POST_DIR}/{current_date}.html", "w") as f:
-        f.write(f"<div>{current_date}</div>")
+    datetime_obj = datetime.now()
+    current_date = datetime_obj.strftime("%m-%d-%Y")
+    with open(f"{c.CONTENT_POST_DIR}/{datetime_obj}.html", "w") as f:
+        f.write(
+            f"<!-- Don't channge the classes or delete these -->\n"
+            f"<div class='title'>Insert title here</h1>\n"
+            f"<div class='subtitle'>{current_date}</div>\n"
+        )
+
+
+def delete_posts(c: Config) -> None:
+    B_post_folder = os.listdir(f"{c.BUILD_DIR}/posts")
+    for file in B_post_folder:
+        file_path = os.path.join(f"{c.BUILD_DIR}/posts", file)
+        os.remove(file_path)
+        print(f"[LOG] Deleting {file} from ./build/posts folder")
 
 
 def generate_content(c: Config) -> None:
@@ -147,8 +175,7 @@ def main() -> None:
     # TODO: Create a Command the creates post
     if args.command == "build":
         if os.path.isdir(config.BUILD_DIR):
-            # print("Build directory exists")
-            pass
+            print("Build directory exists")
         else:
             print("Build directory doesn't exist")
             os.mkdir(config.BUILD_DIR)

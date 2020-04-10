@@ -149,12 +149,20 @@ hr {
 .posts-section { 
 }
 
-.posts-item {
-  
+.posts-item {  
+}
+
+
+/* Everything related to user generated content */
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .subtitle {
@@ -162,16 +170,15 @@ hr {
 }
 
 .text {
-  font-size: 1rem;
+  font-size: .8rem;
 }
 
 @media all and (max-width: 750px) {
   body {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 5;
+    margin-right: 5;
   }
 }
-
 
 
 
