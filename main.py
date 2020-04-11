@@ -12,17 +12,6 @@ import sprite_dl
 config = Config()
 
 
-def token_pokemon_list(data: List) -> List:
-    pokemon_list = []
-    for i in data:
-        pokemon = sprite_dl.PokemonData(
-            i["pokemon"], i["nickname"], i["shiny"], i["description"]
-        )
-        pokemon_list.append(pokemon)
-
-    return pokemon_list
-
-
 def build(c: Config) -> None:
     generate_pokemon_list(c)
     generate_index(c)
@@ -32,16 +21,36 @@ def build(c: Config) -> None:
 
 def generate_pokemon_list(c: Config) -> None:
     """ Populates pokemon_list.html """
-    data = sprite_dl.open_file(c)
-    pokemon_list = token_pokemon_list(data)
-
     template = c.JINJA_ENV.get_template("pokemon_list.html")
-    output = template.render(pokemons=pokemon_list)
 
+    with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
+        print("[LOG] Tokenizing pokemon_list.json")
+        json_data = json.load(file)
+
+        pokemon_list = []
+        for i in json_data:
+            if i["shiny"] == True:
+                asset_location = f"{c.SHINY_SPRITE_DIR}/{i['pokemon']}.gif"
+            else:
+                asset_location = f"{c.SPRITE_DIR}/{i['pokemon']}.gif"
+            pokemon = sprite_dl.PokemonData(
+                i["pokemon"],
+                i["nickname"],
+                i["shiny"],
+                i["description"],
+                asset_location,
+            )
+            pokemon_list.append(pokemon)
+            sprite_dl.download_sprite(pokemon, c) 
+        output = template.render(pokemons=pokemon_list)
+    
+
+    # Creates File and writes list of pokemon to it
     rendered_file = "pokemon_list.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
         print("[LOG] Writing to build folder...")
         f.write(output)
+
 
 
 def generate_index(c: Config) -> None:
@@ -49,7 +58,7 @@ def generate_index(c: Config) -> None:
     template = c.JINJA_ENV.get_template("index.html")
 
     # Grabbing meta-data of active_team.json to insert into index template
-    with open(f"{c.CONTENT_POKEMON_DIR}/active_team.json") as f:
+    with open(f"{c.CONTENT_POKEMON_DIR}/active_team.json", "r") as f:
         print("[LOG] Tokenizing active_team.json")
         json_data = json.load(f)
 
@@ -67,8 +76,7 @@ def generate_index(c: Config) -> None:
                 asset_location,
             )
             active_team.append(pokemon)
-            sprite_dl.download_sprite(pokemon, c)  # TODO: test this
-
+            sprite_dl.download_sprite(pokemon, c) 
         output = template.render(pokemons=active_team)
 
     # Creates File and writes list of pokemon to it
@@ -78,7 +86,6 @@ def generate_index(c: Config) -> None:
         f.write(output)
 
 
-# TODO: Finish this. Scans files for date and title
 def generate_posts(c: Config) -> None:
     """ Generates the posts.html file (contains list of blogposts and sorts them)
         Also parses markdown files in ./content and writes to file in ./build
@@ -172,7 +179,6 @@ def main() -> None:
     parser.add_argument("command", type=str, help="builds site")
     args = parser.parse_args()
 
-    # TODO: Create a Command the creates post
     if args.command == "build":
         if os.path.isdir(config.BUILD_DIR):
             print("Build directory exists")

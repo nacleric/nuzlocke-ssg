@@ -1,20 +1,26 @@
 [
   {
     "pokemon": "bidoof",
-    "nickname": "jerry",
+    "nickname": "Jerry",
     "shiny": false,
     "description": "tragically died"
   },
   {
     "pokemon": "charizard",
-    "nickname": "lizardon",
+    "nickname": "Lizardon",
     "shiny": true,
     "description": "tragically died"
   },
   {
     "pokemon": "bidoof",
-    "nickname": "jarry",
+    "nickname": "Jarry",
     "shiny": true,
     "description": "tragically died"
+  },
+  {
+    "pokemon": "espeon",
+    "nickname": "Jorry",
+    "shiny": false,
+    "description": "Self-Destruct"
   }
 ]

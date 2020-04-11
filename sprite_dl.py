@@ -90,12 +90,14 @@ def delete_sprites(c: Config) -> None:
 def main(c: Config) -> None:
     """ Tokenizes pokemon json data """
 
-    data = open_file(c)
+    with open(f"{c.CONTENT_POKEMON_DIR}/pokemon.json", "r") as file:
+        data = json.load(file)
 
     delete_sprites(c)
+
     for i in data:
         pokemon = PokemonData(i["pokemon"], i["nickname"], i["shiny"], i["description"])
-        download_sprite(pokemon, config)
+        download_sprite(pokemon, c)
 
 
 if __name__ == "__main__":

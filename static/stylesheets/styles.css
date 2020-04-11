@@ -42,7 +42,7 @@ hr {
   width: 200px;
   background-color: #bbb;
   border-radius: 50%;
-  border-style: dashed;
+  border-style: solid;
   display: block;
 }
 
@@ -78,7 +78,7 @@ hr {
 
 .team-section-box {
   /* subject to change */
-  border-style: dashed;
+  border-style: solid;
   width: 100px;
   padding: 30px;
   margin-bottom: 10px;
@@ -109,7 +109,7 @@ hr {
   /* Flexbox */
   display: flex;
   /* style */
-  border-style: dashed;
+  border-style: solid;
   padding: 10px;
   margin-left: 20px;
   margin-right: 20px;
@@ -130,16 +130,14 @@ hr {
 }
 
 .pokemon-list-item-text {
-  /* Flexbox */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  /* style */  
   margin-left: 20px
 }
 
 .pokemon-list-item-text-nickname {
   font-size: 1.35rem;
+  font-weight: bold;
 }
 
 .pokemon-list-item-text-description {
@@ -150,6 +148,7 @@ hr {
 }
 
 .posts-item {  
+  font-size: 1.5rem;
 }
 
 
@@ -179,9 +178,3 @@ hr {
     margin-right: 5;
   }
 }
-
-
-
-
-
-
