@@ -3,7 +3,7 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 
 class Config:
     # Select bw for 2d and xy for 3d models
-    SPRITE_TYPE = "bw"
+    SPRITE_TYPE = "xy"
 
     # Markup
     CONTENT_POKEMON_DIR = "./content/team"
