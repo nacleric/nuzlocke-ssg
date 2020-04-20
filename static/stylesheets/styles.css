@@ -1,5 +1,6 @@
 :root {
-  --main-color: #8B4513; /* Brown */
+  --main-color: hsl(25, 76%, 31%);
+  --main-color-lite:hsla(25, 76%, 31%, 0.747);
 }
 
 body {
@@ -10,10 +11,10 @@ body {
 }
 
 hr {
-    border: 0;
-    height: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border: 0;
+  height: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .container {
@@ -79,19 +80,27 @@ hr {
 .team-section-box {
   /* subject to change */
   border-style: solid;
+  border-radius: 15px;
+  color: var(--main-color-lite);
   width: 100px;
-  padding: 30px;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 10px;
   margin-bottom: 10px;
+  margin-left: 10px ;
+  margin-right: 10px;
 }
 
 .team-section-box-nickname {
   text-align: center;
   font-size: 1.25rem;
+  color: var(--main-color)
 }
 
-.pokemon-asset {
-  height: 120%;
-  width: 120%;
+.team-section-box-asset {
+  height: 110%;
+  width: 110%;
   margin-left: auto;
   margin-right: auto;
   image-rendering: pixelated;
@@ -121,8 +130,6 @@ hr {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
-  height: 50px;
-  width: 70px;
   margin-bottom: auto;
   margin-top: auto;
   margin-left: 10px;
@@ -141,7 +148,8 @@ hr {
 }
 
 .pokemon-list-item-text-description {
-  font-size: 1rem; 
+  font-size: 1rem;
+  color: var(--main-color-lite)
 }
 
 .posts-section { 

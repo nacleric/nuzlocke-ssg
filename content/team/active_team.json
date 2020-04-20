@@ -1,14 +1,14 @@
 [
   {
-    "pokemon": "ditto",
-    "nickname": "larry",
+    "pokemon": "flygon",
+    "nickname": "Larry",
     "shiny": false,
-    "description": "tragically died"
+    "description": "Died on route 5 to a geodude"
   },
   {
-    "pokemon": "ditto",
-    "nickname": "pog",
+    "pokemon": "metagross",
+    "nickname": "Pogchamp",
     "shiny": true,
-    "description": "tragically died"
+    "description": "Got dodge stalled by pidgeoto"
   }
 ]

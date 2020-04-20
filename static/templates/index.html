@@ -14,7 +14,7 @@
     <div class="team-section">
     {% for pokemon in pokemons %}
       <div class="team-section-box">
-        <img class="pokemon-asset" src="{{ pokemon.asset_location }}">
+        <img class="team-section-box-asset" src="{{ pokemon.asset_location }}">
         <p class="team-section-box-nickname">{{ pokemon.nickname }}</p>
       </div>
     {% endfor %}
