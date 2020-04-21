@@ -41,16 +41,14 @@ def generate_pokemon_list(c: Config) -> None:
                 asset_location,
             )
             pokemon_list.append(pokemon)
-            sprite_dl.download_sprite(pokemon, c) 
+            sprite_dl.download_sprite(pokemon, c)
         output = template.render(pokemons=pokemon_list)
-    
 
     # Creates File and writes list of pokemon to it
     rendered_file = "pokemon_list.html"
     with open(f"{c.BUILD_DIR}/{rendered_file}", "w") as f:
         print("[LOG] Writing to build folder...")
         f.write(output)
-
 
 
 def generate_index(c: Config) -> None:
@@ -76,7 +74,7 @@ def generate_index(c: Config) -> None:
                 asset_location,
             )
             active_team.append(pokemon)
-            sprite_dl.download_sprite(pokemon, c) 
+            sprite_dl.download_sprite(pokemon, c)
         output = template.render(pokemons=active_team)
 
     # Creates File and writes list of pokemon to it
