@@ -83,6 +83,7 @@ hr {
   border-radius: 15px;
   color: var(--main-color-lite);
   width: 100px;
+  height: 150px;
   padding-top: 30px;
   padding-left: 30px;
   padding-right: 30px;
@@ -95,12 +96,10 @@ hr {
 .team-section-box-nickname {
   text-align: center;
   font-size: 1.25rem;
-  color: var(--main-color)
+  color: var(--main-color);
 }
 
 .team-section-box-asset {
-  height: 110%;
-  width: 110%;
   margin-left: auto;
   margin-right: auto;
   image-rendering: pixelated;
