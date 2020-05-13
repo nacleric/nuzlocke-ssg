@@ -96,6 +96,7 @@ def generate_posts(c: Config) -> None:
     class PostToken(NamedTuple):
         title: str
         date: str
+        intro: str
         filename: str
         file_location: str
 
@@ -119,10 +120,12 @@ def generate_posts(c: Config) -> None:
 
         soup = BeautifulSoup(content, "html.parser")
         soup_title = soup.find("div", class_="title").get_text()
-        soup_date = soup.find("div", class_="subtitle").get_text()
+        soup_date = soup.find("div", class_="date").get_text()
+        soup_intro = soup.find("div", class_="intro").get_text()
         post_token = PostToken(
             title=soup_title,
             date=soup_date,
+            intro=soup_intro,
             filename=file,
             file_location=f"/posts/{file}",
         )
@@ -134,7 +137,7 @@ def generate_posts(c: Config) -> None:
         print(f"[LOG] Generated {HTML_FILE}...")
         f.write(rendered_posts_html)
 
-
+#TODO: fix this; only works with 1 stylesheet
 def generate_styles(c: Config) -> None:
     """ Parses stylesheets in ./static and writes to ./build/stylesheets """
     stylesheets_folder = os.listdir(c.CSS_DIR)
@@ -155,8 +158,9 @@ def new_post(c: Config) -> None:
     with open(f"{c.CONTENT_POST_DIR}/{datetime_obj}.html", "w") as f:
         f.write(
             f"<!-- Don't channge the classes or delete these -->\n"
-            f"<div class='title'>Insert title here</h1>\n"
-            f"<div class='subtitle'>{current_date}</div>\n"
+            f"<div class='title'>Insert title here</div>\n"
+            f"<div class='date'>{current_date}</div>\n"
+            f"<div class='intro'>Insert intro here</div>\n"
         )
 
 
@@ -166,10 +170,6 @@ def delete_posts(c: Config) -> None:
         file_path = os.path.join(f"{c.BUILD_DIR}/posts", file)
         os.remove(file_path)
         print(f"[LOG] Deleting {file} from ./build/posts folder")
-
-
-def generate_content(c: Config) -> None:
-    pass
 
 
 def main() -> None:
@@ -192,16 +192,17 @@ def main() -> None:
         build(config)
     elif args.command == "newpost":
         new_post(config)
-    elif args.command == "sprites":
+    elif args.command == "dl_sprites":
         sprite_dl.main(config)
-    elif args.command == "delete":
+    elif args.command == "del_sprites":
         sprite_dl.delete_sprites(config)
     elif args.command == "help":
         print(
             "Commands: \n"
-            "build  |   generates the site and downloads assets \n"
-            "sprites|   only downloads the sprites\n"
-            "newpost|   generates a markdown file for content"
+            "build      |   generates the site and downloads assets \n"
+            "dl_sprites |   only downloads the sprites\n"
+            "del_sprites|   deletes sprites\n"
+            "newpost    |   generates a markdown file for content"
         )
     else:
         print("Wrong command. Enter 'help'")

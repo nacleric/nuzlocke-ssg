@@ -1,187 +1,223 @@
 :root {
-  --main-color: hsl(25, 76%, 31%);
-  --main-color-lite:hsla(25, 76%, 31%, 0.747);
+  --white: hsl(0, 0%, 99%);
+  --dark: hsl(213, 33%, 21%);
+  --coralred: hsl(358, 100%, 67%);
+}
+
+html, html[data-theme="light"] {
+  --background-color: rgb(252, 252, 252);
+  --text-color: hsl(213, 33%, 21%);
+  --text-color-fade: hsla(213, 33%, 21%, 0.900);
+}
+
+html[data-theme="dark"] {
+  --background-color: hsl(213, 33%, 21%);
+  --text-color: hsl(0, 0%, 99%);
+  --text-color-fade: hsl(0, 0%, 99%, 0.800);
 }
 
 body {
-  font-family: "Roboto Mono";
-  margin-left: 150px;
-  margin-right: 150px;
-  color: var(--main-color);
+  margin: 0px;
+  font-family: raleway;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
-hr {
-  border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+a {
+  color: inherit;
 }
 
-.container {
-  margin: auto;
-}
-
-.nav {
+nav {
+  position: sticky;
   display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
 }
 
-.nav-item {
-  margin-left: 10px;
-  margin-right: 10px;
+::selection {
+  background: var(--coralred);
+  color: var(--white);
+}
+
+.feather {
+  width: 32px;
+  height: 32px;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.is-red{
+  color: var(--coralred);
+}
+
+.darkmode-icon {
+  position: absolute;
+  top: 20%;
+  right: 2%;
+}
+
+.navbar-container {
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.navbar-item {
+  margin-left: 15px;
+  margin-right: 15px;
+  font-size: 1.1rem;
+}
+
+.navbar-item:hover {
+  text-decoration: underline;
+  color: var(--coralred);
+}
+
+.navbar-item, .navbar-item:visited, .navbar-item:active {
+  text-decoration: none;
+}
+
+.post-item-title, .post-item-title:visited, .post-item-title:active {
+  text-decoration: none;
+}
+
+.jinja-container {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 40px;
 }
 
 .banner {
   padding-bottom: 10px;
 }
 
+.banner-img {
+  margin-left: auto;
+  margin-right: auto;
+  height: 110%;
+  width: auto;
+  border-radius: 50%; 
+}
+
 .banner-img-border {
+  margin-top: 75px;
   margin-left: auto;
   margin-right: auto;
   height: 200px;
   width: 200px;
-  background-color: #bbb;
   border-radius: 50%;
   border-style: solid;
-  display: block;
-}
-
-.banner-title {
-  text-align: center;
-  font-size: 2rem;
-}
-
-.banner-text{
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  width: 450px;
-}
-
-.team {
-  margin-top: 10px;
-}
-
-.team-title {
-  font-size: 2rem;
-  text-align: center;
-}
-
-.team-section {
-  /* Flexbox */
+  border-color: var(--coralred);
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  /*justify-content: space-around;*/
   justify-content: center;
 }
 
-.team-section-box {
-  /* subject to change */
-  border-style: solid;
-  border-radius: 15px;
-  color: var(--main-color-lite);
-  width: 100px;
-  height: 150px;
-  padding-top: 30px;
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px ;
-  margin-right: 10px;
-}
-
-.team-section-box-nickname {
-  text-align: center;
-  font-size: 1.25rem;
-  color: var(--main-color);
-}
-
-.team-section-box-asset {
+.banner-icons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  margin-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+  width: 200px;
 }
 
-.pokemon-list {
-  /* Flexbox */
+.banner-title {
+  font-family: lato;
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.banner-text {
   display: flex;
-  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  font-size: 1.25rem;
+  width: 70%;
+  color: var(--text-color-fade);
 }
 
-.pokemon-list-item {
-  /* Flexbox */
-  display: flex;
-  /* style */
-  border-style: solid;
-  padding: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 15px;
-  margin-top: 15px;
+.posts-section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 }
 
-.pokemon-list-item-asset {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  margin-bottom: auto;
-  margin-top: auto;
-  margin-left: 10px;
-  margin-right: 10px; 
+.posts-item {
+
 }
 
-.pokemon-list-item-text {
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px
-}
-
-.pokemon-list-item-text-nickname {
-  font-size: 1.35rem;
+.posts-item-title {
+  font-family: lato;
   font-weight: bold;
+  font-size: 2rem;
+  text-decoration: none;
 }
 
-.pokemon-list-item-text-description {
-  font-size: 1rem;
-  color: var(--main-color-lite)
+.posts-item-intro {
+  font-family: raleway;
+  font-size: 1.1rem;
+  color: var(--text-color-fade);
 }
-
-.posts-section { 
-}
-
-.posts-item {  
-  font-size: 1.5rem;
-}
-
-
-/* Everything related to user generated content */
 
 .content-section {
-  display: flex;
-  flex-direction: column;
-
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  font-size: 1.5rem;
 }
 
 .title {
-  font-size: 2rem;
+  font-family: lato;
+  font-size: 3.5rem;
 }
 
-.subtitle {
+.date {
+  font-family: lato;
+  font-size: 1rem !important;
+}
+
+.intro {
+  margin-top: 30px;
   font-size: 1.5rem;
 }
 
-.text {
-  font-size: .8rem;
-}
+/* TODO STYLE pokemon_list.html and team-section in index.html*/
 
-@media all and (max-width: 750px) {
+/* Responsive */
+@media all and (max-width: 800px) {
   body {
-    margin-left: 5;
-    margin-right: 5;
+    /* color: red; */
+    margin: 0px;
+  }
+
+  .navbar-container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .jinja-container {
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+
+  .banner-text {
+    width: 90%;
+  }
+
+  .content-section {
+    font-size: 1.1rem;
+  }
+
+  .title {
+    font-size: 2.25rem;
+  }
+  
+  .date {
+    font-size: 1rem;
   }
 }
