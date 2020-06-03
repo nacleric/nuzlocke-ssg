@@ -14,6 +14,7 @@ class Config:
     SHINY_SPRITE_DIR = "./static/shiny_sprites"
     TEMPLATE_DIR = "./static/templates"
     CSS_DIR = "./static/stylesheets"
+    SCRIPTS_DIR = "./static/scripts"
 
     # Jinja environment variable
     JINJA_ENV = Environment(

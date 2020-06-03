@@ -8,6 +8,7 @@ body {
   margin-left: 150px;
   margin-right: 150px;
   color: var(--main-color);
+  transition: all 0.2s;
 }
 
 hr {
