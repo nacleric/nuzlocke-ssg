@@ -3,21 +3,51 @@
   <head>
     <title>Nuzlocke-ssg</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<link rel="stylesheet" href="https://unpkg.com/bulmaswatch/default/bulmaswatch.min.css">-->
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Raleway&family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/stylesheets/styles.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <script>
+      let html = document.documentElement;
+      if (localStorage.getItem("isDark") === "true") {
+        html.setAttribute('data-theme', 'dark');
+      }
+    </script>
   </head>
 
   <body>
-    <!-- Navbar -->
-    <div class="nav">
-      <a class="nav-item" href="/">Home</a>
-      <a class="nav-item" href="/pokemon_list.html">Morgue</a>
-      <a class="nav-item" href="/posts.html">List of Runs</a>
-    </div>
+    <nav id="navbar">
+      <span class="navbar-container">
+        <a class="navbar-item" href="/">Eric Nuzlockes</a>
+        <a style="margin-right: 10px"> | </a>
+        <a class="navbar-item" href="/">Home</a>
+        <a class="navbar-item" href="/pokemon_list.html">Morgue</a>
+        <a class="navbar-item" href="/posts.html">Runs</a>
+        <i id="toggle-dark" class="navbar-item darkmode-icon" data-feather="sun"></i>
+      </span>
+    </nav>
  
-    <div class="container">
+    <div class="jinja-container">
       {% block content %}{% endblock %}
     </div>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+      feather.replace()
+
+      let toggleDark = document.getElementById("toggle-dark")
+      toggleDark.addEventListener("click", () => {
+        let html = document.documentElement;
+        if (localStorage.getItem("isDark") === null) {
+          html.setAttribute('data-theme', 'dark');
+          localStorage.setItem("isDark", "true")
+        } else if (localStorage.getItem("isDark") === "false") {
+          html.setAttribute('data-theme', 'dark');
+          localStorage.setItem("isDark", "true")
+        } else if (localStorage.getItem("isDark") === "true") {
+          html.setAttribute('data-theme', 'light');
+          localStorage.setItem("isDark", "false")
+        }
+      })
+    </script>
+
   </body>
 </html>

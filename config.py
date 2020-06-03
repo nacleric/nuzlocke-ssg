@@ -19,7 +19,6 @@ class Config:
     # Jinja environment variable
     JINJA_ENV = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
-        #autoescape=select_autoescape(["html", "xml"]),
         autoescape=False
     )
     
