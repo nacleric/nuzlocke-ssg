@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <!-- Intro -->
+  <div class="banner">
+    <div class="banner-img-border">
+      <img class="banner-img" src="https://pokestop.io/img/pokemon/bidoof-256x256.png"> 
+    </div>
+    <h1 class="banner-title">Obstagoon</h1>
+    <p class="banner-text">Hey this is my nuzlocke page, you can keep track of all my runs here</p>
+    <div class="banner-icons">
+      <a target="_blank" href="#">
+        <i class="banner-icon" data-feather="github"></i>
+      </a>
+      <a target="_blank" href="#">
+        <i class="banner-icon" data-feather="youtube"></i>
+      </a>
+      <a target="_blank" href="#">
+        <i class="banner-icon" data-feather="twitter"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="team">
+    <h1 class="team-title">Current Team:</h1>
+    <div class="team-section">
+    {% for pokemon in pokemons %}
+      <div class="team-section-box">
+        <img class="team-section-box-asset" src="{{ pokemon.asset_location }}">
+        <p class="team-section-box-nickname">{{ pokemon.nickname }}</p>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock %}
