@@ -13,7 +13,7 @@ config = Config()
 
 
 def build(config=config) -> None:
-    if config.ONLY_BLOG is True:
+    if config.ONLY_BLOG is False:
         generate_pokemon_list()
     generate_index()
     generate_posts()
